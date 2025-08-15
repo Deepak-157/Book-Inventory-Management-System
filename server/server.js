@@ -12,6 +12,12 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:5173", // Vite default port
+    credentials: true,
+  })
+);
 
 // Connect to MongoDB
 mongoose
@@ -25,6 +31,7 @@ mongoose
 
 // Routes
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/books", require("./routes/books"));
 
 // Default route
 app.get("/", (req, res) => {
