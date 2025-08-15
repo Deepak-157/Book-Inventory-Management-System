@@ -1,15 +1,15 @@
-const express = require('express');
-const { check } = require('express-validator');
-const { 
-  getBooks, 
-    getBookById, 
+const express = require("express");
+const { check } = require("express-validator");
+const {
+  getBooks,
+  getBookById,
   fetchBookDetails,
-  createBook, 
-  updateBook, 
+  createBook,
+  updateBook,
   deleteBook,
-  getBookStats
-} = require('../controllers/books');
-const { protect, authorize } = require('../middleware/auth');
+  getBookStats,
+} = require("../controllers/books");
+const { protect, authorize } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -17,55 +17,66 @@ const router = express.Router();
 router.use(protect);
 
 // Get book stats
-router.get('/stats', getBookStats);
+router.get("/stats", getBookStats);
 
 // Get all books with pagination
-router.get('/', getBooks);
+router.get("/", getBooks);
 
 // Get single book
-router.get('/:id', getBookById);
+router.get("/:id", getBookById);
+
+//Fetch Book Details using gemini
+router.post("/fetch-details", authorize("ADMIN", "EDITOR"), fetchBookDetails);
 
 // Create book - only ADMIN and EDITOR can create
 router.post(
-  '/',
-  authorize('ADMIN', 'EDITOR'),
+  "/",
+  authorize("ADMIN", "EDITOR"),
   [
-    check('title', 'Title is required').notEmpty(),
-    check('author', 'Author is required').notEmpty(),
-    check('isbn', 'ISBN is required').notEmpty(),
-    check('category', 'Category is required').notEmpty(),
-    check('publicationDate', 'Publication date is required').notEmpty(),
-    check('status', 'Status is required').notEmpty(),
-    check('bookType', 'Book type is required').notEmpty(),
-    check('condition', 'Condition is required').notEmpty(),
-    check('purchasePrice', 'Purchase price is required').isNumeric(),
-    check('marketValue', 'Market value is required').isNumeric()
+    check("title", "Title is required").notEmpty(),
+    check("author", "Author is required").notEmpty(),
+    check("isbn", "ISBN is required").notEmpty(),
+    check("category", "Category is required").notEmpty(),
+    check("publicationDate", "Publication date is required").notEmpty(),
+    check("status", "Status is required").notEmpty(),
+    check("bookType", "Book type is required").notEmpty(),
+    check("condition", "Condition is required").notEmpty(),
+    check("purchasePrice", "Purchase price is required").isNumeric(),
+    check("marketValue", "Market value is required").isNumeric(),
   ],
   createBook
 );
 
 // Update book - only ADMIN and EDITOR can update
 router.put(
-  '/:id',
-  authorize('ADMIN', 'EDITOR'),
+  "/:id",
+  authorize("ADMIN", "EDITOR"),
   [
-    check('title', 'Title is required if provided').optional().notEmpty(),
-    check('author', 'Author is required if provided').optional().notEmpty(),
-    check('isbn', 'ISBN is required if provided').optional().notEmpty(),
-    check('category', 'Category is required if provided').optional().notEmpty(),
-    check('publicationDate', 'Publication date is required if provided').optional().notEmpty(),
-    check('status', 'Status is required if provided').optional().notEmpty(),
-    check('bookType', 'Book type is required if provided').optional().notEmpty(),
-    check('condition', 'Condition is required if provided').optional().notEmpty(),
-    check('purchasePrice', 'Purchase price must be a number').optional().isNumeric(),
-    check('marketValue', 'Market value must be a number').optional().isNumeric()
+    check("title", "Title is required if provided").optional().notEmpty(),
+    check("author", "Author is required if provided").optional().notEmpty(),
+    check("isbn", "ISBN is required if provided").optional().notEmpty(),
+    check("category", "Category is required if provided").optional().notEmpty(),
+    check("publicationDate", "Publication date is required if provided")
+      .optional()
+      .notEmpty(),
+    check("status", "Status is required if provided").optional().notEmpty(),
+    check("bookType", "Book type is required if provided")
+      .optional()
+      .notEmpty(),
+    check("condition", "Condition is required if provided")
+      .optional()
+      .notEmpty(),
+    check("purchasePrice", "Purchase price must be a number")
+      .optional()
+      .isNumeric(),
+    check("marketValue", "Market value must be a number")
+      .optional()
+      .isNumeric(),
   ],
   updateBook
 );
 
-router.post('/fetch-details', protect, fetchBookDetails);
-
 // Delete book - only ADMIN and EDITOR can delete
-router.delete('/:id', authorize('ADMIN', 'EDITOR'), deleteBook);
+router.delete("/:id", authorize("ADMIN", "EDITOR"), deleteBook);
 
 module.exports = router;

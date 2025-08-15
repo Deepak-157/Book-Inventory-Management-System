@@ -35,16 +35,19 @@ export const userService = {
     }
   },
   
-  /**
-   * Update a user
-   */
-  async updateUser(id: string, userData: UserUpdateData): Promise<User> {
-    try {
-      const response = await api.put(`/users/${id}`, userData);
-      return response.data.data;
-    } catch (error) {
-      console.error(`Error updating user with ID ${id}:`, error);
-      throw error;
-    }
+ /**
+ * Update a user
+ */
+async updateUser(id: string, userData: UserUpdateData): Promise<{ user: User; roleChanged: boolean }> {
+  try {
+    const response = await api.put(`/users/${id}`, userData);
+    return {
+      user: response.data.data,
+      roleChanged: response.data.roleChanged || false
+    };
+  } catch (error) {
+    console.error(`Error updating user with ID ${id}:`, error);
+    throw error;
   }
+}
 };

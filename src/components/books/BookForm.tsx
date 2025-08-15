@@ -8,7 +8,7 @@ import { geminiService } from '../../services/geminiService';
 interface BookFormProps {
     initialData?: BookUpdateData;
     isEditing?: boolean;
-    onSubmit: (data: BookCreateData | BookUpdateData) => Promise<void>;
+    onSubmit: (data: BookUpdateData) => Promise<void>;
     isLoading?: boolean;
 }
 

@@ -120,8 +120,7 @@ exports.getBookById = async (req, res) => {
 // @access  Private
 exports.fetchBookDetails = async (req, res) => {
   try {
-      const { isbn } = req.body;
-      console.log("Hare Krishna",isbn)
+    const { isbn } = req.body;
 
     if (!isbn) {
       return res.status(400).json({
@@ -258,6 +257,7 @@ exports.updateBook = async (req, res) => {
     // Check if user is admin or the creator of the book
     if (
       req.user.role !== "ADMIN" &&
+      req.user.role !== "EDITOR" &&
       book.createdBy.toString() !== req.user.id
     ) {
       return res.status(403).json({
@@ -313,6 +313,7 @@ exports.deleteBook = async (req, res) => {
     // Check if user is admin or the creator of the book
     if (
       req.user.role !== "ADMIN" &&
+      req.user.role !== "EDITOR" &&
       book.createdBy.toString() !== req.user.id
     ) {
       return res.status(403).json({

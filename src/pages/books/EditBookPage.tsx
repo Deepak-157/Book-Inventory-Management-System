@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import MainLayout from '../components/layout/MainLayout';
-import BookForm from '../components/books/BookForm';
-import { useBooks } from '../context/BookContext';
-import type { Book, BookUpdateData } from '../types/book';
+import MainLayout from '../../components/layout/MainLayout';
+import BookForm from '../../components/books/BookForm';
+import { useBooks } from '../../context/BookContext';
+import type { Book, BookUpdateData } from '../../types/book';
 import { ExclamationIcon } from '@heroicons/react/outline';
-import { Spinner } from '../components/common/Spinner';
+import { Spinner } from '../../components/common/Spinner';
 
 /**
  * Edit book page component
@@ -16,7 +16,7 @@ const EditBookPage = () => {
   const { id } = useParams<{ id: string }>();
   const { fetchBookById, updateBook } = useBooks();
   const navigate = useNavigate();
-  
+
   const [book, setBook] = useState<Book | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
@@ -37,7 +37,7 @@ const EditBookPage = () => {
         }
       }
     };
-    
+
     getBook();
   }, [id]);
 
@@ -46,10 +46,10 @@ const EditBookPage = () => {
    */
   const handleSubmit = async (data: BookUpdateData) => {
     if (!id) return;
-    
+
     setIsLoading(true);
     setError(null);
-    
+
     try {
       await updateBook(id, data);
       navigate(`/books/${id}`);
@@ -132,7 +132,7 @@ const EditBookPage = () => {
             </div>
           </div>
         )}
-        
+
         <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
           <BookForm
             initialData={book}

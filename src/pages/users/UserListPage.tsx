@@ -1,19 +1,21 @@
 // src/pages/UserListPage.tsx
 
 import { useEffect, useState } from 'react';
-import { userService } from '../services/userService';
-import { type User } from '../types/user';
-import { UserRole } from '../types/auth';
-import MainLayout from '../components/layout/MainLayout';
-import Pagination from '../components/common/Pagination';
-import { Spinner } from '../components/common/Spinner';
-import FlexibleModal from '../components/common/Modal';
+import { userService } from '../../services/userService';
+import { type User } from '../../types/user';
+import { UserRole } from '../../types/auth';
+import MainLayout from '../../components/layout/MainLayout';
+import Pagination from '../../components/common/Pagination';
+import { Spinner } from '../../components/common/Spinner';
+import FlexibleModal from '../../components/common/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
+import { useAuth } from '../../context/AuthContext';
 
 /**
  * User list page component
  */
 const UserListPage = () => {
+    const { user: currentUser } = useAuth();
     const [users, setUsers] = useState<User[]>([]);
     const [totalUsers, setTotalUsers] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -58,6 +60,12 @@ const UserListPage = () => {
 
     // Open role modal
     const openRoleModal = (user: User) => {
+        if (user._id === currentUser?.id) {
+            // Show an error or alert message
+            setError("You cannot change your own role. For security reasons, another administrator must change your role.");
+            return;
+        }
+
         setSelectedUser(user);
         setSelectedRole(user.role);
         setIsRoleModalOpen(true);

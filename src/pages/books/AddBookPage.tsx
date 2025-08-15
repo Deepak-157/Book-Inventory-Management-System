@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MainLayout from '../components/layout/MainLayout';
-import BookForm from '../components/books/BookForm';
-import { useBooks } from '../context/BookContext';
-import type { BookCreateData } from '../types/book';
+import MainLayout from '../../components/layout/MainLayout';
+import BookForm from '../../components/books/BookForm';
+import { useBooks } from '../../context/BookContext';
+import type { BookCreateData } from '../../types/book';
 import { ExclamationIcon } from '@heroicons/react/outline';
 
 /**
@@ -14,7 +14,7 @@ import { ExclamationIcon } from '@heroicons/react/outline';
 const AddBookPage = () => {
   const { createBook } = useBooks();
   const navigate = useNavigate();
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +24,7 @@ const AddBookPage = () => {
   const handleSubmit = async (data: BookCreateData) => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const newBook = await createBook(data);
       navigate(`/books/${newBook._id}`);
@@ -52,7 +52,7 @@ const AddBookPage = () => {
             </div>
           </div>
         )}
-        
+
         <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
           <BookForm onSubmit={handleSubmit} isLoading={isLoading} />
         </div>

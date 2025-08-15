@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
-  ArrowLeftIcon, 
-  PencilIcon, 
-  TrashIcon, 
-  ExclamationIcon 
+import {
+  ArrowLeftIcon,
+  PencilIcon,
+  TrashIcon,
+  ExclamationIcon
 } from '@heroicons/react/outline';
-import MainLayout from '../components/layout/MainLayout';
-import { useBooks } from '../context/BookContext';
-import { useAuth } from '../context/AuthContext';
-import type { Book } from '../types/book';
-import { UserRole } from '../types/auth';
-import { Spinner } from '../components/common/Spinner';
-import FlexibleModal from '../components/common/Modal';
+import MainLayout from '../../components/layout/MainLayout';
+import { useBooks } from '../../context/BookContext';
+import { useAuth } from '../../context/AuthContext';
+import type { Book } from '../../types/book';
+import { UserRole } from '../../types/auth';
+import { Spinner } from '../../components/common/Spinner';
+import FlexibleModal from '../../components/common/Modal';
 /**
  * Book detail page component
  */
@@ -21,11 +21,11 @@ const BookDetailPage = () => {
   const { fetchBookById, deleteBook, isLoading, error } = useBooks();
   const { hasRole } = useAuth();
   const navigate = useNavigate();
-  
+
   const [book, setBook] = useState<Book | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
   const canManageBooks = hasRole(UserRole.ADMIN) || hasRole(UserRole.EDITOR);
 
   // Fetch book data when the component mounts
@@ -40,7 +40,7 @@ const BookDetailPage = () => {
         }
       }
     };
-    
+
     getBook();
   }, [id]);
 
@@ -56,9 +56,9 @@ const BookDetailPage = () => {
    */
   const handleDelete = async () => {
     if (!id) return;
-    
+
     setIsDeleting(true);
-    
+
     try {
       await deleteBook(id);
       setIsDeleteModalOpen(false);
@@ -86,7 +86,7 @@ const BookDetailPage = () => {
    */
   const renderStatusBadge = (status: string) => {
     let colorClass;
-    
+
     switch (status) {
       case 'Available':
         colorClass = 'bg-green-100 text-green-800';
@@ -103,7 +103,7 @@ const BookDetailPage = () => {
       default:
         colorClass = 'bg-gray-100 text-gray-800';
     }
-    
+
     return (
       <span className={`${colorClass} inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium`}>
         {status}
@@ -116,7 +116,7 @@ const BookDetailPage = () => {
    */
   const renderConditionBadge = (condition: string) => {
     let colorClass;
-    
+
     switch (condition) {
       case 'Excellent':
         colorClass = 'bg-green-100 text-green-800';
@@ -133,7 +133,7 @@ const BookDetailPage = () => {
       default:
         colorClass = 'bg-gray-100 text-gray-800';
     }
-    
+
     return (
       <span className={`${colorClass} inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium`}>
         {condition}
@@ -145,10 +145,10 @@ const BookDetailPage = () => {
    * Render value change percentage with color based on value
    */
   const renderValueChange = (percentage: number) => {
-    const colorClass = percentage >= 0 
-      ? 'text-green-600' 
+    const colorClass = percentage >= 0
+      ? 'text-green-600'
       : 'text-red-600';
-    
+
     return (
       <span className={colorClass}>
         {percentage >= 0 ? '+' : ''}{percentage}%
@@ -226,7 +226,7 @@ const BookDetailPage = () => {
             <ArrowLeftIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Back to Books
           </button>
-          
+
           {canManageBooks && (
             <div className="flex space-x-3">
               <button

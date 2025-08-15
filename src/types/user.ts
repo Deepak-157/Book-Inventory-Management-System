@@ -1,6 +1,4 @@
-// src/types/user.ts
-
-import { UserRole } from './auth';
+import { UserRole } from "./auth";
 
 /**
  * User model interface

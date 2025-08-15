@@ -6,41 +6,41 @@
  * Book status options
  */
 export enum BookStatus {
-  Available = 'Available',
-  Borrowed = 'Borrowed',
-  Lost = 'Lost',
-  Damaged = 'Damaged'
+  Available = "Available",
+  Borrowed = "Borrowed",
+  Lost = "Lost",
+  Damaged = "Damaged",
 }
 
 /**
  * Book category options
  */
 export enum BookCategory {
-  Fiction = 'Fiction',
-  NonFiction = 'Non-Fiction',
-  Biography = 'Biography',
-  Science = 'Science',
-  History = 'History',
-  Programming = 'Programming',
-  SelfHelp = 'Self-Help',
-  Business = 'Business',
-  Other = 'Other'
+  Fiction = "Fiction",
+  NonFiction = "Non-Fiction",
+  Biography = "Biography",
+  Science = "Science",
+  History = "History",
+  Programming = "Programming",
+  SelfHelp = "Self-Help",
+  Business = "Business",
+  Other = "Other",
 }
 
 /**
  * Book condition options
  */
 export enum BookCondition {
-  Excellent = 'Excellent',
-  Good = 'Good',
-  Fair = 'Fair',
-  Poor = 'Poor'
+  Excellent = "Excellent",
+  Good = "Good",
+  Fair = "Fair",
+  Poor = "Poor",
 }
 
 /**
  * Book type classification
  */
-export type BookType = 'New' | 'Old';
+export type BookType = "New" | "Old";
 
 /**
  * User reference in book
@@ -77,8 +77,8 @@ export interface Book {
  * Book creation data (without generated fields)
  */
 export type BookCreateData = Omit<
-  Book, 
-  '_id' | 'valueChangePercentage' | 'createdBy' | 'createdAt' | 'updatedAt'
+  Book,
+  "_id" | "valueChangePercentage" | "createdBy" | "createdAt" | "updatedAt"
 >;
 
 /**
@@ -103,7 +103,7 @@ export interface BookFilters {
  */
 export interface BookSort {
   field: keyof Book;
-  direction: 'asc' | 'desc';
+  direction: "asc" | "desc";
 }
 
 /**

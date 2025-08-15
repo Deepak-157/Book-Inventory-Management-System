@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { Spinner } from '../components/common/Spinner';
+import { useAuth } from '../../context/AuthContext';
+import { Spinner } from '../../components/common/Spinner';
 import { Link } from 'react-router-dom';
 
 /**
