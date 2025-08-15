@@ -12,7 +12,7 @@ interface ProtectedRouteProps {
  * Optionally restricts access by user role
  */
 const ProtectedRoute = ({ requiredRole }: ProtectedRouteProps) => {
-  const { isAuthenticated, isLoading, hasRole } = useAuth();
+  const { isAuthenticated, isLoading, user, hasRole } = useAuth();
   const location = useLocation();
 
   // Show loading indicator while checking authentication
@@ -30,8 +30,19 @@ const ProtectedRoute = ({ requiredRole }: ProtectedRouteProps) => {
   }
 
   // Check role requirement if specified
-  if (requiredRole && !hasRole(requiredRole)) {
-    return <Navigate to="/unauthorized" replace />;
+  if (requiredRole) {
+    // For debugging
+    console.log('Required role:', requiredRole);
+    console.log('User role:', user?.role);
+    console.log('Has required role:', hasRole(requiredRole));
+    
+    // Check if user has ADMIN role (admins can access any role-restricted route)
+    const isAdmin = user?.role === UserRole.ADMIN;
+    
+    // If user is not admin and doesn't have the required role, redirect to unauthorized
+    if (!isAdmin && !hasRole(requiredRole)) {
+      return <Navigate to="/unauthorized" replace />;
+    }
   }
 
   // User is authenticated and authorized

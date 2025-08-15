@@ -2,7 +2,8 @@ const express = require('express');
 const { check } = require('express-validator');
 const { 
   getBooks, 
-  getBookById, 
+    getBookById, 
+  fetchBookDetails,
   createBook, 
   updateBook, 
   deleteBook,
@@ -61,6 +62,8 @@ router.put(
   ],
   updateBook
 );
+
+router.post('/fetch-details', protect, fetchBookDetails);
 
 // Delete book - only ADMIN and EDITOR can delete
 router.delete('/:id', authorize('ADMIN', 'EDITOR'), deleteBook);

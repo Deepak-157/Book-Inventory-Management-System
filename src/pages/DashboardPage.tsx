@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { 
   BookOpenIcon, 
   SparklesIcon, 
-  ArchiveBoxIcon,
+  ArchiveIcon,
   ExclamationCircleIcon,
   
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/outline';
 import MainLayout from '../components/layout/MainLayout';
 import StatsCard from '../components/dashboard/StatsCard';
 import { useBooks } from '../context/BookContext';
@@ -98,7 +98,7 @@ const DashboardPage = () => {
           <StatsCard 
             title="Old Books" 
             count={isLoading ? -1 : stats.oldBooks} 
-            icon={<ArchiveBoxIcon className="h-6 w-6 text-yellow-600" />}
+            icon={<ArchiveIcon className="h-6 w-6 text-yellow-600" />}
             color="warning"
             isLoading={isLoading}
             onClick={() => goToBookList({ key: 'bookType', value: 'Old' })}

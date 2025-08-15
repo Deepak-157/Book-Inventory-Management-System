@@ -111,7 +111,7 @@ export const BookProvider = ({ children }: BookProviderProps) => {
     setError(null);
     
     try {
-      const response = await bookService.getBooks(currentPage, 10, filters, sort);
+      const response = await bookService.getBooks(currentPage, 5, filters, sort);
       
       if (response.success) {
         setBooks(response.data.books);
