@@ -76,7 +76,7 @@ export interface Book {
 /**
  * Book creation data (without generated fields)
  */
-export type BookCreateData = Omit
+export type BookCreateData = Omit<
   Book, 
   '_id' | 'valueChangePercentage' | 'createdBy' | 'createdAt' | 'updatedAt'
 >;

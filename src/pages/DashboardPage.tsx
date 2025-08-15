@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { 
   BookOpenIcon, 
   SparklesIcon, 
-  ArchiveIcon,
+  ArchiveBoxIcon,
   ExclamationCircleIcon,
-  RefreshIcon
-} from '@heroicons/react/outline';
+  
+} from '@heroicons/react/24/outline';
 import MainLayout from '../components/layout/MainLayout';
 import StatsCard from '../components/dashboard/StatsCard';
 import { useBooks } from '../context/BookContext';
@@ -70,7 +70,7 @@ const DashboardPage = () => {
                     onClick={handleRefresh}
                     className="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   >
-                    <RefreshIcon className="h-5 w-5" aria-hidden="true" />
+                    {/* <RefreshIcon className="h-5 w-5" aria-hidden="true" /> */}
                   </button>
                 </div>
               </div>
@@ -98,7 +98,7 @@ const DashboardPage = () => {
           <StatsCard 
             title="Old Books" 
             count={isLoading ? -1 : stats.oldBooks} 
-            icon={<ArchiveIcon className="h-6 w-6 text-yellow-600" />}
+            icon={<ArchiveBoxIcon className="h-6 w-6 text-yellow-600" />}
             color="warning"
             isLoading={isLoading}
             onClick={() => goToBookList({ key: 'bookType', value: 'Old' })}
