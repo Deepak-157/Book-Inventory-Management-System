@@ -115,6 +115,83 @@ exports.getBookById = async (req, res) => {
   }
 };
 
+// @desc    Fetch book details from ISBN using Gemini API
+// @route   POST /api/books/fetch-details
+// @access  Private
+exports.fetchBookDetails = async (req, res) => {
+  try {
+    const { isbn } = req.body;
+
+    if (!isbn) {
+      return res.status(400).json({
+        success: false,
+        message: "ISBN is required",
+      });
+    }
+
+    // Make request to Google Generative AI API (Gemini)
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    const GEMINI_API_URL =
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+
+    const prompt = `
+      I need detailed information about a book with ISBN: ${isbn}.
+      Please provide the following details in JSON format:
+      {
+        "title": "Book title",
+        "author": "Author name",
+        "publicationDate": "YYYY-MM-DD",
+        "publisher": "Publisher name",
+        "category": "Book category (Fiction, Non-Fiction, Biography, Science, History, Programming, Self-Help, Business, Other)",
+        "description": "Brief description of the book"
+      }
+      Ensure the date is in YYYY-MM-DD format and the category matches one of the specified options exactly.
+    `;
+
+    const response = await axios.post(
+      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: prompt,
+              },
+            ],
+          },
+        ],
+      }
+    );
+
+    // Extract the JSON from the Gemini response
+    let bookData = {};
+    const responseText = response.data.candidates[0].content.parts[0].text;
+
+    // Extract JSON object from response (which might contain markdown code blocks)
+    const jsonMatch = responseText.match(
+      /```json\n([\s\S]*?)\n```|({[\s\S]*})/
+    );
+    if (jsonMatch) {
+      try {
+        bookData = JSON.parse(jsonMatch[1] || jsonMatch[2]);
+      } catch (parseError) {
+        console.error("Error parsing JSON from Gemini response:", parseError);
+      }
+    }
+
+    res.status(200).json({
+      success: true,
+      data: bookData,
+    });
+  } catch (err) {
+    console.error("Error fetching book details:", err);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching book details",
+    });
+  }
+};
+
 // @desc    Create a new book
 // @route   POST /api/books
 // @access  Private
@@ -180,6 +257,7 @@ exports.updateBook = async (req, res) => {
     // Check if user is admin or the creator of the book
     if (
       req.user.role !== "ADMIN" &&
+      req.user.role !== "EDITOR" &&
       book.createdBy.toString() !== req.user.id
     ) {
       return res.status(403).json({
@@ -235,6 +313,7 @@ exports.deleteBook = async (req, res) => {
     // Check if user is admin or the creator of the book
     if (
       req.user.role !== "ADMIN" &&
+      req.user.role !== "EDITOR" &&
       book.createdBy.toString() !== req.user.id
     ) {
       return res.status(403).json({

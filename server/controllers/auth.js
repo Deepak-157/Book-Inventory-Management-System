@@ -38,8 +38,6 @@ exports.register = async (req, res) => {
       role: role || "VIEWER",
     });
 
-    console.log("User created:", user);
-
     // Generate token
     const token = generateToken(user._id);
 

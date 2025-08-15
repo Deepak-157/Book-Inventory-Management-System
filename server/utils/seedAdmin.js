@@ -1,34 +1,45 @@
-const express = require("express");
-const { check } = require("express-validator");
-const { register, login, getMe } = require("../controllers/auth");
-const { protect } = require("../middleware/auth");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const User = require("../models/User");
 
-const router = express.Router();
+// Load environment variables
+dotenv.config();
 
-// Register route
-router.post(
-  "/register",
-  [
-    check("username", "Username is required").not().isEmpty(),
-    check("name", "Name is required").not().isEmpty(),
-    check("password", "Password must be at least 6 characters").isLength({
-      min: 6,
-    }),
-  ],
-  register
-);
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    seedAdmin();
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1);
+  });
 
-// Login route
-router.post(
-  "/login",
-  [
-    check("username", "Username is required").not().isEmpty(),
-    check("password", "Password is required").exists(),
-  ],
-  login
-);
+// Seed admin user
+const seedAdmin = async () => {
+  try {
+    // Check if admin already exists
+    const adminExists = await User.findOne({ username: "admin" });
 
-// Get current user route
-router.get("/me", protect, getMe);
+    if (adminExists) {
+      console.log("Admin user already exists");
+      process.exit(0);
+    }
 
-module.exports = router;
+    // Create admin user
+    await User.create({
+      username: "admin",
+      name: "Admin User",
+      password: "password",
+      role: "ADMIN",
+    });
+
+    console.log("Admin user created successfully");
+    process.exit(0);
+  } catch (err) {
+    console.error("Error seeding admin user:", err);
+    process.exit(1);
+  }
+};

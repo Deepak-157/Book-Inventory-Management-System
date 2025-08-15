@@ -1,14 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { BookProvider } from './context/BookContext';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import BookListPage from './pages/BookListPage';
-import UnauthorizedPage from './pages/UnauthorizedPage';
+import LoginPage from './pages/authentication/LoginPage';
+import RegisterPage from './pages/authentication/RegisterPage';
+import UnauthorizedPage from './pages/authentication/UnauthorizedPage';
+import BookListPage from './pages/books/BookListPage';
+import BookDetailPage from './pages/books/BookDetailPage';
+import AddBookPage from './pages/books/AddBookPage';
+import EditBookPage from './pages/books/EditBookPage';
+import DashboardPage from './pages/dashboard/DashboardPage';
+import UserListPage from './pages/users/UserListPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { UserRole } from './types/auth';
-
 
 function App() {
   return (
@@ -20,20 +23,26 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/unauthorized" element={<UnauthorizedPage />} />
-            
+
             {/* Protected routes - any authenticated user */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/books" element={<BookListPage />} />
-              {/* Additional routes will be added later */}
+              <Route path="/books/:id" element={<BookDetailPage />} />
             </Route>
-            
+
             {/* Editor/Admin only routes */}
             <Route element={<ProtectedRoute requiredRole={UserRole.EDITOR} />}>
-              {/* Add/Edit routes will be added here later */}
+              <Route path="/books/add" element={<AddBookPage />} />
+              <Route path="/books/edit/:id" element={<EditBookPage />} />
             </Route>
-            
+
+            {/* Admin only routes */}
+            <Route element={<ProtectedRoute requiredRole={UserRole.ADMIN} />}>
+              <Route path="/users" element={<UserListPage />} />
+            </Route>
+
             {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
