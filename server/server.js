@@ -24,15 +24,15 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // API Routes
 app.use("/api/auth", require("./routes/auth"));
-// app.use("/api/books", require("./routes/books"));
-// app.use("/api/users", require("./routes/users"));
+app.use("/api/books", require("./routes/books"));
+app.use("/api/users", require("./routes/users"));
 
 // Serve React frontend in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 
   // Handle all other routes with React frontend
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build", "index.html"));
   });
 }
