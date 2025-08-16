@@ -7,7 +7,7 @@ import type {
   UserRole,
 } from "../types/auth";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL + "/api";
 
 // Create axios instance
 const api = axios.create({
