@@ -27,15 +27,6 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/books", require("./routes/books"));
 app.use("/api/users", require("./routes/users"));
 
-// Serve React frontend in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-
-  // Handle all other routes with React frontend
-  app.get("/*name", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-  });
-}
 
 // Default route for API testing
 app.get("/", (req, res) => {
