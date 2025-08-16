@@ -215,7 +215,7 @@ const BookForm = ({
                                     id="title"
                                     value={formData.title || ''}
                                     onChange={handleChange}
-                                    className={`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md ${errors.title ? 'border-red-300' : ''
+                                    className={`py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm ${errors.title ? 'border-red-300' : ''
                                         }`}
                                 />
                                 {errors.title && (
@@ -236,7 +236,7 @@ const BookForm = ({
                                     id="author"
                                     value={formData.author || ''}
                                     onChange={handleChange}
-                                    className={`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md ${errors.author ? 'border-red-300' : ''
+                                    className={`py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm ${errors.author ? 'border-red-300' : ''
                                         }`}
                                 />
                                 {errors.author && (
@@ -257,7 +257,7 @@ const BookForm = ({
                                     id="isbn"
                                     value={formData.isbn || ''}
                                     onChange={handleChange}
-                                    className={`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md ${errors.isbn ? 'border-red-300' : ''
+                                    className={`py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm ${errors.isbn ? 'border-red-300' : ''
                                         }`}
                                 />
                                 {errors.isbn && (
@@ -266,7 +266,7 @@ const BookForm = ({
                             </div>
                         </div>
 
-                        <div className="mt-2">
+                        <div className="mt-6">
                             <button
                                 type="button"
                                 onClick={fetchBookDetails}
@@ -308,7 +308,7 @@ const BookForm = ({
                                     id="publicationDate"
                                     value={formData.publicationDate || ''}
                                     onChange={handleChange}
-                                    className={`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md ${errors.publicationDate ? 'border-red-300' : ''
+                                    className={`py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm ${errors.publicationDate ? 'border-red-300' : ''
                                         }`}
                                 />
                                 {errors.publicationDate && (
@@ -328,7 +328,7 @@ const BookForm = ({
                                     name="category"
                                     value={formData.category || ''}
                                     onChange={handleChange}
-                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm"
                                 >
                                     {Object.values(BookCategory).map((category) => (
                                         <option key={category} value={category}>
@@ -350,7 +350,7 @@ const BookForm = ({
                                     name="status"
                                     value={formData.status || ''}
                                     onChange={handleChange}
-                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm"
                                 >
                                     {Object.values(BookStatus).map((status) => (
                                         <option key={status} value={status}>
@@ -372,7 +372,7 @@ const BookForm = ({
                                     name="bookType"
                                     value={formData.bookType || ''}
                                     onChange={handleChange}
-                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm"
                                 >
                                     <option value="New">New</option>
                                     <option value="Old">Old</option>
@@ -391,7 +391,7 @@ const BookForm = ({
                                     name="condition"
                                     value={formData.condition || ''}
                                     onChange={handleChange}
-                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm"
                                 >
                                     {Object.values(BookCondition).map((condition) => (
                                         <option key={condition} value={condition}>
@@ -427,18 +427,17 @@ const BookForm = ({
                         {/* Purchase Price */}
                         <div className="sm:col-span-3">
                             <label htmlFor="purchasePrice" className="block text-sm font-medium text-gray-700">
-                                Purchase Price ($)
+                                Purchase Price (₹)
                             </label>
                             <div className="mt-1">
                                 <input
                                     type="number"
                                     name="purchasePrice"
                                     id="purchasePrice"
-                                    min="0"
                                     step="0.01"
-                                    value={formData.purchasePrice || 0}
+                                    value={formData.purchasePrice}
                                     onChange={handleChange}
-                                    className={`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md ${errors.purchasePrice ? 'border-red-300' : ''
+                                    className={`py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm ${errors.purchasePrice ? 'border-red-300' : ''
                                         }`}
                                 />
                                 {errors.purchasePrice && (
@@ -450,7 +449,7 @@ const BookForm = ({
                         {/* Market Value */}
                         <div className="sm:col-span-3">
                             <label htmlFor="marketValue" className="block text-sm font-medium text-gray-700">
-                                Market Value ($)
+                                Market Value (₹)
                             </label>
                             <div className="mt-1">
                                 <input
@@ -461,7 +460,7 @@ const BookForm = ({
                                     step="0.01"
                                     value={formData.marketValue || 0}
                                     onChange={handleChange}
-                                    className={`shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md ${errors.marketValue ? 'border-red-300' : ''
+                                    className={`py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm ${errors.marketValue ? 'border-red-300' : ''
                                         }`}
                                 />
                                 {errors.marketValue && (
@@ -482,7 +481,7 @@ const BookForm = ({
                                     id="valueChangePercentage"
                                     value={`${calculateValueChange()}%`}
                                     disabled
-                                    className="bg-gray-100 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="bg-gray-100 py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm"
                                 />
                             </div>
                             <p className="mt-2 text-xs text-gray-500">
@@ -502,12 +501,10 @@ const BookForm = ({
                                     rows={4}
                                     value={formData.description || ''}
                                     onChange={handleChange}
-                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    className="py-1 border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-sm"
                                 />
                             </div>
-                            <p className="mt-2 text-sm text-gray-500">
-                                Brief description of the book
-                            </p>
+                          
                         </div>
                     </div>
                 </div>

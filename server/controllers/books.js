@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+const axios = require("axios");
 const Book = require("../models/Book");
 
 // @desc    Get all books with pagination, filtering, and sorting
@@ -132,7 +133,7 @@ exports.fetchBookDetails = async (req, res) => {
     // Make request to Google Generative AI API (Gemini)
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     const GEMINI_API_URL =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
     const prompt = `
       I need detailed information about a book with ISBN: ${isbn}.

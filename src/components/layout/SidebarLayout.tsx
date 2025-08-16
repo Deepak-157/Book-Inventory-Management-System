@@ -203,10 +203,11 @@ const SidebarLayout = ({ children }: SidebarLayoutProps) => {
                             <div className="flex-shrink-0 w-full group block">
                                 <div className="flex items-center">
                                     <div>
-                                        <div className="inline-block h-9 w-9 rounded-full bg-indigo-800 text-white flex items-center justify-center">
+                                        <div className="inline-flex h-9 w-9 rounded-full bg-indigo-800 text-white items-center justify-center text-lg font-medium">
                                             {user?.name.charAt(0).toUpperCase() || 'U'}
                                         </div>
                                     </div>
+
                                     <div className="ml-3">
                                         <p className="text-sm font-medium text-white">{user?.name || 'User'}</p>
                                         <p className="text-xs font-medium text-indigo-200 group-hover:text-white">
