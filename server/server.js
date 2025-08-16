@@ -24,8 +24,8 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // API Routes
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/books", require("./routes/books"));
-app.use("/api/users", require("./routes/users"));
+// app.use("/api/books", require("./routes/books"));
+// app.use("/api/users", require("./routes/users"));
 
 // Serve React frontend in production
 if (process.env.NODE_ENV === "production") {
