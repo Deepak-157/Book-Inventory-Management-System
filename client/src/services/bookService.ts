@@ -85,7 +85,7 @@ export const bookService = {
   /**
    * Create a new book
    */
-  async createBook(bookData: BookCreateData): Promise<Book> {
+  async createBook(bookData: Partial<BookCreateData>): Promise<Book> {
     try {
       const response = await api.post<BookResponse>("/books", bookData);
       return response.data.data;

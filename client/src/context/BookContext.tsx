@@ -32,7 +32,7 @@ interface BookContextType {
     // Actions
     fetchBooks: () => Promise<void>;
     fetchBookById: (id: string) => Promise<Book>;
-    createBook: (book: BookCreateData) => Promise<Book>;
+    createBook: (book: Partial<BookCreateData>) => Promise<Book>;
     updateBook: (id: string, book: BookUpdateData) => Promise<Book>;
     deleteBook: (id: string) => Promise<void>;
 
@@ -189,7 +189,7 @@ export const BookProvider = ({ children }: BookProviderProps) => {
     /**
      * Create a new book
      */
-    const createBook = async (bookData: BookCreateData): Promise<Book> => {
+    const createBook = async (bookData: Partial<BookCreateData>): Promise<Book> => {
         setIsLoading(true);
         setError(null);
 

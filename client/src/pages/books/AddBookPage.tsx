@@ -21,7 +21,7 @@ const AddBookPage = () => {
   /**
    * Handle form submission
    */
-  const handleSubmit = async (data: BookCreateData) => {
+  const handleSubmit = async (data: Partial<BookCreateData>) => {
     setIsLoading(true);
     setError(null);
 

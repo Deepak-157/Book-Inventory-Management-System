@@ -17,7 +17,6 @@ import { useAuth } from '../../context/AuthContext';
 const UserListPage = () => {
     const { user: currentUser } = useAuth();
     const [users, setUsers] = useState<User[]>([]);
-    const [totalUsers, setTotalUsers] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +27,6 @@ const UserListPage = () => {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedRole, setSelectedRole] = useState<UserRole>(UserRole.VIEWER);
     const [isUpdating, setIsUpdating] = useState(false);
-    console.log('Modal component:', FlexibleModal);
 
     // Fetch users
     const fetchUsers = async () => {
@@ -40,7 +38,6 @@ const UserListPage = () => {
 
             if (response.success) {
                 setUsers(response.data.users);
-                setTotalUsers(response.data.total);
                 setTotalPages(response.data.totalPages);
             } else {
                 setError('Failed to fetch users');
@@ -153,7 +150,8 @@ const UserListPage = () => {
                                     <div className="bg-white px-4 py-12 text-center">
                                         <p className="text-gray-500">No users found</p>
                                     </div>
-                                ) : (
+                                    ) : (
+                                            
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gray-50">
                                             <tr>

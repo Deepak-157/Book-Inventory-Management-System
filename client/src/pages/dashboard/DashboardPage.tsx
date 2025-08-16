@@ -10,7 +10,7 @@ import {
 import MainLayout from '../../components/layout/MainLayout';
 import StatsCard from '../../components/dashboard/StatsCard';
 import { useBooks } from '../../context/BookContext';
-import { BookCategory, BookStatus } from '../../types/book';
+import { BookStatus } from '../../types/book';
 import { Spinner } from '../../components/common/Spinner';
 
 /**
